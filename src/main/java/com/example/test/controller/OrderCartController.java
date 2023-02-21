@@ -1,6 +1,6 @@
 package com.example.test.controller;
 
-import com.example.test.dto.AddItemDto;
+import com.example.test.dto.ItemDto;
 import com.example.test.model.OrderCart;
 import com.example.test.repository.OrderCartRepository;
 import com.example.test.service.OrderCartService;
@@ -32,13 +32,13 @@ public class OrderCartController {
     }
 
     @PostMapping
-    public ResponseEntity<OrderCart> post(@Valid @RequestBody AddItemDto addItemDto){
-        return ResponseEntity.status(HttpStatus.CREATED).body(orderCartService.addItem(addItemDto));
+    public ResponseEntity<OrderCart> post(@Valid @RequestBody ItemDto itemDto){
+        return ResponseEntity.status(HttpStatus.CREATED).body(orderCartService.addItem(itemDto));
     }
 
-//    @PutMapping
-//    public ResponseEntity<OrderCart> put(@PathVariable Long id, @Valid @RequestBody AddItemDto addItemDto){
-//        return ResponseEntity.status(HttpStatus.CREATED).body(orderCartService.alterItem(addItemDto,id));
-//    }
+    @PutMapping
+    public ResponseEntity<OrderCart> put(@PathVariable Long id, @Valid @RequestBody ItemDto itemDto){
+        return ResponseEntity.status(HttpStatus.CREATED).body(orderCartService.updateItem(itemDto,id));
+    }
 
 }
