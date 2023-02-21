@@ -36,19 +36,22 @@ public class OrderCartService {
             item.setProduct(product);
             item.setQuantity(addItemDto.getQuantity());
             item.setOrderCart(orderCart);
-            itemRepository.save(item);
             orderCart.setItem(List.of(item));
 
             if (item.getQuantity() != 0) {
                 double price = item.getQuantity() * product.getPrice();
                 item.setSubPrice(price);
-            } else {
-//                delete(item.getId());
-                throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+                itemRepository.save(item);
             }
+            return orderCart;
+
+        } else {
+//                delete(item.getId());
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
-        return orderCart;
     }
+
+}
 
 //    public OrderCart alterItem(AddItemDto addItemDto, Long id) {
 //        itemRepository.findById(id).isPresent();
@@ -70,4 +73,4 @@ public class OrderCartService {
 //    }
 
 
-}
+
